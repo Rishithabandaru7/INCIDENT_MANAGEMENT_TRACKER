@@ -18,16 +18,31 @@ spec:
         ports:
         - containerPort: 5000
         env:
-        - name: DB_USER
-          value: "incident_user"
-        - name: DB_PASSWORD
-          value: "incident_pass"
-        - name: DB_NAME
-          value: "incident_db"
-        - name: DB_HOST
-          value: "mysql-service"
-        - name: GEMINI_API_KEY
-          value: "AIzaSyA4Le27cVzU6wnYp-D5mlseZPKaK3Lglxs"
+          - name: DB_USER
+            valueFrom:
+              secretKeyRef:
+                name: flask-env-secret
+                key: DB_USER
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: flask-env-secret
+                key: DB_PASSWORD
+          - name: DB_NAME
+            valueFrom:
+              secretKeyRef:
+                name: flask-env-secret
+                key: DB_NAME
+          - name: DB_HOST
+            valueFrom:
+              secretKeyRef:
+                name: flask-env-secret
+                key: DB_HOST
+          - name: GEMINI_API_KEY
+            valueFrom:
+              secretKeyRef:
+                name: flask-env-secret
+                key: GEMINI_API_KEY
         resources:
           requests:
             memory: "256Mi"
